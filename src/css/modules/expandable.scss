@@ -1,0 +1,16 @@
+
+// This is a CSS solution to expand an element without resorting to using jQuery+jQuery UI
+.expandable {
+    overflow: hidden;
+}
+
+.expandable:not(.expand) {
+    max-height: 0px;
+}
+.expandable.expand {
+    // max-height has to be an absurdly high value to avoid accidentally cutting off big elements
+    max-height: 10000px;
+
+    // The transition's duration has to be a lot longer than our desired duration since we're transitioning to a height that is presumably higher than intended
+    transition: max-height 3000ms ease-in;
+}

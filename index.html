@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Seminar Registration Form</title>
+
+	<script type="text/javascript" src="./build/app.js" defer></script>
+</head>
+
+<body ng-app="test">
+	<div class="glow"></div>
+	<div id="page-wrap" ng-controller="SeminarRegistrationController">
+		<h1>Seminar <span>Registration</span></h1>
+		<form action="#" method="post">
+			<fieldset id="step_1">
+				<legend>Step 1</legend>
+				<div class="content">
+					<label for="num_attendees">
+                            How many people will be attending?
+                        </label>
+					<select id="num_attendees" ng-model="people.attending" ng-change="people.onChange()">
+                            <option id="opt_0" value="0">Please Choose</option>
+                            <option id="opt_1" value="1">1</option>
+                            <option id="opt_2" value="2">2</option>
+                            <option id="opt_3" value="3">3</option>
+                            <option id="opt_4" value="4">4</option>
+                            <option id="opt_5" value="5">5</option>
+                        </select>
+					<br>
+					<div id="attendee_container" ng-expand="people.attending > 0" ng-expand-watch="people.attending">
+						<h3>Please provide full names:</h3>
+						<div ng-repeat="attendee in people.attendees track by $index" id="attendee_{{$index+1}}_wrap">
+							<label class="input_label" for="name_attendee_{{$index+1}}">
+                                        Attendee {{$index+1}} Name:
+                                </label>
+							<input type="text" id="name_attendee_{{$index+1}}" ng-model="people.attendees[$index]">
+						</div>
+					</div>
+					<div ng-expand="isStepReady.one()" id="step1_result" class="result center checkmark"></div>
+				</div>
+			</fieldset>
+			<fieldset id="step_2" ng-disabled="!isStepReady.one()">
+				<legend>Step 2</legend>
+				<div class="content">
+					<p>
+						Would you like your company name on your badges?
+					</p>
+					<div>
+						<input ng-model="badge.enabled" type="radio" value="true" id="company_name_toggle_on" name="company_name_toggle_group">
+						<label for="company_name_toggle_on">Yes</label> &emsp;
+						<input ng-model="badge.enabled" type="radio" value="false" id="company_name_toggle_off" name="company_name_toggle_group">
+						<label for="company_name_toggle_off">No</label>
+					</div>
+
+					<div ng-expand="badge.enabled == 'true'" id="company_name_wrap">
+						<label class="input_label" for="company_name">
+                                Company Name:
+                            </label>
+						<input ng-model="badge.text" type="text" id="company_name">
+					</div>
+
+					<p>
+						Will anyone in your group require special accommodations?
+					</p>
+					<div>
+						<input ng-model="accomodations.enabled" value="true" type="radio" nid="special_accommodations_toggle_on" name="special_accommodations_toggle">
+						<label for="special_accommodations_toggle_on">Yes</label> &emsp;
+						<input ng-model="accomodations.enabled" value="false" type="radio" id="special_accommodations_toggle_off" name="special_accommodations_toggle">
+						<label for="special_accommodations_toggle_off">No</label>
+					</div>
+					<div ng-expand="accomodations.enabled == 'true'" id="special_accommodations_wrap">
+						<label class="input_label" for="special_accomodations_text">
+                                Please explain below:
+                            </label>
+						<textarea ng-model="accomodations.text" rows="10" cols="10" id="special_accomodations_text"></textarea>
+					</div>
+
+					<div ng-expand="isStepReady.two()" id="step2_result" class="result center checkmark"></div>
+				</div>
+			</fieldset>
+
+			<fieldset id="step_3" ng-disabled="!(isStepReady.two())">
+				<legend>Step 3</legend>
+				<label for="rock">
+                        Are you ready to rock?
+                    </label>
+				<input ng-model="seminar.isReadyToRock" type="checkbox" id="rock">
+				<button type="button" ng-disabled="!isStepReady.three()" ng-click="submit()" id="submit_button">Complete Registration</button>
+			</fieldset>
+		</form>
+	</div>
+</body>
+
+</html>

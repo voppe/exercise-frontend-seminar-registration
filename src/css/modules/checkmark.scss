@@ -1,0 +1,39 @@
+@import 'colors';
+
+// A pure CSS checkmark ✓
+.checkmark {
+    // Center the checkmar
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: $size-checkmark;
+    height: $size-checkmark;
+    border-radius: $size-checkmark/2;
+    font-size: $size-checkmark/2 !important;
+    background-color: $color-checkmark-background;
+}
+
+%checkmark-piece {
+    position: relative;
+    background-color: $color-checkmark;
+    content: '';
+}
+.checkmark::before {
+    @extend %checkmark-piece;
+
+    transform: rotate(-45deg);
+    top: 8px;
+    left: -7px;
+    width: 10px;
+    height: 22px;
+}
+.checkmark::after {
+    @extend %checkmark-piece;
+
+    transform: rotate(45deg);
+    top: 0px;
+    left: 0px;
+    width: 10px;
+    height: 44px;
+}

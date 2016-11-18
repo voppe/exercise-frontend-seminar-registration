@@ -1,0 +1,81 @@
+@import 'modules/checkmark';
+@import 'modules/expandable';
+@import 'modules/glow';
+@import 'modules/utils';
+@import 'sizes';
+@import 'colors';
+
+html {
+    background-color: $color-background;
+
+    h1 {
+        margin-left: 0.3em;
+        color: $color-title-primary;
+
+        span {
+            color: $color-title-secondary;
+        }
+    }
+
+    form {
+        display: flex;
+        align-items: flex-start;
+
+        fieldset {
+            // Size
+            width: 32.33333%;
+            margin-left: 0.5%;
+            margin-right: 0.5%;
+
+            // Font
+            font-style: italic;
+            font-size: $size-primary-text; 
+            
+            // States
+            &[disabled] {
+                opacity: 0.5;
+            }
+        
+            // Children
+            legend {
+                font-weight: bold;
+                font-style: initial;
+                background-color: $color-step-label;
+                padding: 0.5em;
+                border-radius: 0.5em;
+            }
+            textarea {
+                width: 100%;
+            }
+            h3 {
+                font-style: initial;
+                font-weight: bold;
+            }
+            p {
+                margin-bottom: 0px;
+                &:first-of-type {
+                    margin-top: 0px;
+                }
+            }
+            .input_label {
+                font-size: $size-input-label; 
+            }
+            .result {
+                margin-top: 0.5em !important;
+            }
+            #submit_button {
+                display: block;
+                margin-top: 1em; 
+            }
+        }
+
+        // Section colors
+        $steps: (1: $color-step-1, 2: $color-step-2, 3: $color-step-3);
+        @each $step, $color in $steps {
+            #step_#{$step} { 
+                background-color: $color;
+                color: $color-text;
+            }
+        }
+    }
+}
